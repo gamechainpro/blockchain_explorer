@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>全球游戏联盟链区块链浏览器</title>
+	<link rel="icon" type="image/png" sizes="16x16" href="./images/ioc.png">
+	<link rel="stylesheet" type="text/css" href="css/reset.css"/>
+	<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	<script src="js/rem.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="http://at.alicdn.com/t/font_1343148_fm2xydeof9q.css"/>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	
+	<!-- 日历 -->
+	<link rel="stylesheet" type="text/css" href="css/dateRange.css"/>
+	<script src="js/dateRange.js"></script>
+	<style type="text/css">
+		table{
+			table-layout: fixed;
+		}
+		td{
+			text-overflow:ellipsis;  
+			overflow: hidden;  
+		}
+		a{text-decoration: none;color: #333;}
+	</style>
+</head>
+<body>
+	<!-- 区块高度 -->
+	<header class="myhead">
+		<i class="return iconfont icon-fanhui" onclick="javascript:history.back(-1);"></i>
+	</header>
+	
+	<div style="position: relative;">
+		<div class="xian"></div>
+		<table class="deallist">
+			<tr>
+				<th>区块高度</th>
+				<th>交易金额</th>
+				<th>交易费用</th>
+				<th>交易时间</th>
+				<th>交易哈希</th>
+			</tr>
+			<tr class="gif">
+				<td colspan="5">
+					<img src="images/load.gif" alt="">
+				</td>
+			</tr>
+			<tr class="wu hide">
+				<td colspan="5">暂无数据</td>
+			</tr>
+		</table>
+	</div>
+	
+	<div id="tan"></div>
+	
+	<script src="js/apiurl.js"></script>
+	<script type="text/javascript">		
+		function FormatDate(timestamp) {
+		   var date = new Date(timestamp * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+		   Y = date.getFullYear() + '-';
+		   M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+		   D = date.getDate() + ' ';
+		   h = date.getHours() + ':';
+		   m = (date.getMinutes() < 10 ? '0'+(date.getMinutes()) : date.getMinutes()) + ':';
+		   s = (date.getSeconds() < 10 ? '0'+(date.getSeconds()) : date.getSeconds());
+		   return Y+M+D+h+m+s;
+		}
+		var date = new Date();
+		var dateyes = new Date(new Date() - 24 * 60 * 60 * 1000);
+		var tomorrow = new Date(new Date() * 1 + 24 * 60 * 60 * 1000);
+		var start = this.FormatDate(date); //今天日期
+		var end = this.FormatDate(tomorrow); //明天日期
+		var dateRange1 = new pickerDateRange('date1', {
+			stopToday: false,
+			isTodayValid: false,
+			// startDate: start,
+			// endDate: end,
+			needCompare: false,
+			// defaultText: ' 离开 ',
+			autoSubmit: false,
+			theme: 'ta'
+		});
+	  </script>
+	<script type="text/javascript">
+		$(".mulu").click(function(){
+			$(".menu").slideToggle();
+		})
+		$(".date_title").click(function(){
+			$("#tan").show()
+		})
+		$(".frm_btn input").click(function(){
+			$("#tan").hide()
+			var str = $(".date_title").html()
+			$(".time").text(str)
+		})
+		$("#tan").click(function(){
+			$("#tan").hide()
+			var str = $(".date_title").html()
+			$(".time").text(str)
+		})
+		
+		//日期
+		function timestampToTime(timestamp) {
+			var date = new Date(timestamp * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+			Y = date.getFullYear() + '-';
+			M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+			D = date.getDate() + ' ';
+			h = date.getHours() + ':';
+			m = (date.getMinutes() < 10 ? '0'+(date.getMinutes()) : date.getMinutes()) + ':';
+			s = (date.getSeconds() < 10 ? '0'+(date.getSeconds()) : date.getSeconds());
+			return Y+M+D+h+m+s;
+		}
+		
+		$(function(){
+			var str3 = window.sessionStorage.getItem("data3");
+			console.log(str3)
+			var can = {"jsonrpc":"2.0","method":"eth_getBlockByNumber","params":[ '0x' + Number(str3).toString(16) ,false],"id":2},
+			can = JSON.stringify(can)
+			$.ajax(api,{
+				data:can,
+				dataType:'json',//服务器返回json格式数据
+				type:'post',//HTTP请求类型
+				//async: false,
+				contentType: "application/json",
+				success:function(res){
+					console.log(res)
+					if(res.result.transactions.length > 0){
+						for(var i = 0;i < res.result.transactions.length;i++){
+							can2 = {jsonrpc: "2.0", method: "eth_getTransactionByBlockNumberAndIndex", params: ["0x" + Number(str3).toString(16), "0x" + i], id: 229},
+							can2 = JSON.stringify(can2)
+							$.ajax({
+								url:api,
+								data:can2,
+								dataType:'json',//服务器返回json格式数据
+								type:'post',//HTTP请求类型
+								//async: false,
+								contentType: "application/json",
+								success:function(data){
+									var liu = parseInt(data.result.value.slice(2),16).toString(10);
+
+									var val = liu  / 1000000000000000000
+
+									console.log(val)
+
+									$(".gif").addClass("hide")
+									var html = '<tr>' +
+											' <td> ' + parseInt(data.result.blockNumber.slice(2),16).toString(10) + '</td>' + 
+											' <td>'+ val + "GC" +'</td>' + 
+											' <td> ' + parseInt(data.result.gas.slice(2),16).toString(10) / 1000000000 + "GC" + '</td>' + 
+											' <td>' +timestampToTime(parseInt(res.result.timestamp.slice(2),16).toString(10)) +'</td>' + 
+											' <td title='+ data.result.hash +'> '+data.result.hash + '</td>' + 
+										'</tr>'
+									$(".deallist tbody").append(html)
+								}
+							})
+						}
+					}else{
+						$(".wu").removeClass("hide")
+						$(".gif").addClass("hide")
+					}
+				},
+				error:function(error){
+					alert("请输入正确的格式")
+				}
+			});
+		})		
+	</script>
+</body>
+</html>

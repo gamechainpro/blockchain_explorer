@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>全球游戏联盟链区块链浏览器</title>
+	<link rel="icon" type="image/png" sizes="16x16" href="./images/ioc.png">
+	<link rel="stylesheet" type="text/css" href="css/reset.css"/>
+	<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	<script src="js/rem.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="http://at.alicdn.com/t/font_1343148_fm2xydeof9q.css"/>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<style type="text/css">
+		table{  
+			table-layout: fixed;
+		}
+		td{
+			text-overflow:ellipsis;  
+			overflow: hidden;
+			line-height: .3rem;
+			vertical-align: middle;
+		}
+		a{text-decoration: none;color: #333;}
+		.fan{
+			transform:rotate(180deg)
+		}
+	</style>
+</head>
+<body>
+	<div style="background: linear-gradient(118deg,rgba(146,91,255,1) 0%,rgba(68,109,255,1) 100%);">
+		<div class="index_head clearfix">
+			<ul class="menu">
+				<li class="ex1">首页</li>
+				<!-- <li class="ex2">关于我们</li> -->
+				<li class="lang">
+					<img src="images/guoqi.png" ><i class="san"></i>
+				</li>
+				<ul class="lang_next" style="display: none;">
+					<li onclick="window.location.href='index.html'" style="font-size:.26rem"><img src="images/guoqi.png" >&nbsp;&nbsp;&nbsp;中文</li>
+					<li onclick="window.location.href='../English/index.html'" id="translate_button" style="font-size:.26rem"><img src="images/mei.jpg" >&nbsp;&nbsp;&nbsp;英文</li>
+				</ul>
+			</ul>
+			<div class="head_main">
+				<i class="mulu iconfont icon-mulu"></i>
+			
+				<p class="index_font">全球游戏联盟链浏览器</p>
+				<p class="index_font2">全球游戏联盟链研发</p>
+				<div class="search_box">
+					<input type="text" class="sear" value="" placeholder="请输入区块高度，钱包地址，交易哈希查询"/>
+					<i class="iconfont icon-sousuo"></i>
+				</div>
+			</div>
+		</div>
+	</div>
+		
+	<div class="new_deal">
+		<span><img src="images/zuixinjiaoyi.png" alt=""> 区块高度</span>
+		<!-- <a href="more.html"></a> -->
+	</div>
+	
+	<div style="position: relative;">
+		<div class="xian"></div>
+		<table class="deallist" id="tb2">
+			<thead>
+				<tr>
+					<th class="number" style="cursor: pointer;">区块高度</th>
+					<th>交易类型</th>
+					<th>交易时间</th>
+					<th>交易量</th>
+					<th>区块哈希</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="gif">
+					<td colspan="4">
+						<img src="images/load.gif" alt="">
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<script src="js/apiurl.js"></script>
+	<script type="text/javascript">
+		//日期
+		function timestampToTime(timestamp) {
+			var date = new Date(timestamp * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+			Y = date.getFullYear() + '-';
+			M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+			D = date.getDate() + ' ';
+			h = date.getHours() + ':';
+			m = (date.getMinutes() < 10 ? '0'+(date.getMinutes()) : date.getMinutes()) + ':';
+			s = (date.getSeconds() < 10 ? '0'+(date.getSeconds()) : date.getSeconds());
+			return Y+M+D+h+m+s;
+		}
+		
+		$(".icon-sousuo").click(function(){
+			var sear = $(".sear").val();
+			var searval = sear.replace(/\s*/g,""); //去掉空格
+			// 请输入钱包地址：都是以“j”开头的、区块哈希：长度、区块高度:都是数字
+			function yanzhen(zhi){  //验证是不是数字
+				var reg = /^\+?[1-9][0-9]*$/;
+				var patt = new RegExp(reg);
+				return patt.test(zhi)
+			}
+			function check(str){  //验证是不是数字和字母组成
+			    return /^[\da-z]+$/i.test(str);
+			}
+			if(searval.length == 42 && check(searval)){  //钱包地址判断
+				window.location.href="details.html";
+				window.sessionStorage.setItem("data",searval);
+			}else if(searval.length == 66 && check(searval)){	//哈希判断
+				window.location.href="details2.html";
+				window.sessionStorage.setItem("data2",searval);
+			}else if(yanzhen(searval)){							//区块高度
+				window.location.href="details3.html";
+				window.sessionStorage.setItem("data3",searval);
+			}else if(searval == ""){
+				alert("输入不能为空！")
+			}else{
+				alert("请输入正确的格式")
+			}
+		})
+		
+		var shuzu = [];
+		$(function(){
+			var ledger;
+			var can = JSON.stringify({"id":9999999999,"jsonrpc":"2.0","method":"net_listening","params":[]});
+			var _data = $.ajax({
+				// url:api + "/deallist",
+				url:api,
+				dataType:'json',//服务器返回json格式数据
+				type:'POST',
+				data:can,
+				contentType: "application/json",//这个参数也是header参数
+				cache:false,
+				success:function(res){
+					//console.log(res)
+					var can2 = JSON.stringify({"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":1});
+					var  jjh = {};
+					if(res.result){
+						// hex_change
+						 $.ajax({
+							url:api,
+							dataType:'json',//服务器返回json格式数据
+							type:'POST',
+							data:can2,
+							contentType: "application/json",//这个参数也是header参数
+							//cache:false,
+							success:function(data){
+								//console.log(data.result)
+								for(let i = 0;i<20;i++){
+									var gaodu = data.result - i.toString(16);
+									//Number(gaodu).toString(16)
+									var can3 = {"jsonrpc":"2.0","method":"eth_getBlockByNumber","params":[ '0x' + Number(gaodu).toString(16) ,false],"id":2};
+									can3 = JSON.stringify(can3)
+									//console.log(can3)
+									 jjh[i] = $.ajax({
+										url:api,
+										dataType:'json',//服务器返回json格式数据
+										type:'POST',
+										data:can3,
+										contentType: "application/json",//这个参数也是header参数
+										cache:false,
+										async: false,
+										success:function(res){}
+											
+										
+									})
+								}
+								var obj = {}
+								for(var q = 0;q<20;q++){
+									obj[q] = jjh[q].responseJSON.result
+								}
+								console.log(obj[0])
+								$(".gif").hide();
+								for(var o = 0;o<20;o++){
+									var html = "<tr>"+
+											"<td><a class='tiaoz' href='details3.html'>"+ parseInt(obj[o].number).toString(10) +"</a></td>"+
+											"<td><img style='float: left;margin-left: .3rem;' src='images/zhuanzhang.png'><span	style='float:left;line-height:.5rem	'>&nbsp;转账</span></td>"+
+											"<td>"+timestampToTime(obj[o].timestamp.toString(10)) +"</td>"+
+											"<td>"+ obj[o].transactions.length +"</td>"+
+											"<td 'title="+ obj[o].hash +">"+ obj[o].hash +"</td>"+
+										"</tr>"
+									$(".deallist tbody").append(html)
+									$(".tiaoz").click(function(){
+										console.log(this.innerHTML)
+										window.sessionStorage.setItem("data3",this.innerHTML);
+									})
+								}
+								
+							}
+						});
+						
+					
+						
+					}
+				},
+			})
+		
+		
+		})
+		
+		
+		$(".lang").click(function(){
+			$(this).children("i").toggleClass("fan")
+			$(".lang_next").slideToggle(500)
+			// alert($(".index_head").height())
+			// if($(".index_head").height() == "8.32rem"){
+			// 	$(".index_head").css({'height':'10rem','transition':'.5s'})
+			// }else if($(".index_head").height() == "375"){
+			// 	$(".index_head").css({'height':'8.32rem','transition':'.5s'})
+			// }
+		})
+		$(".mulu").click(function(){
+			$(".menu").slideToggle(500);
+			// if($(".menu")){
+			// 	$(".index_head").css({'height':'8.32rem','transition':'.5s'})
+			// }else if(!$(".menu")){
+			// 	$(".index_head").css({'height':'4.8rem','transition':'.5s'})
+			// }
+		})
+	</script>
+</body>
+</html>

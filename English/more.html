@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>全球游戏联盟链区块链浏览器</title>
+	<link rel="icon" type="image/png" sizes="16x16" href="./images/ioc.png">
+	<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	<link rel="stylesheet" href="css/swiper.min.css">
+	<script src="js/swiper.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="http://at.alicdn.com/t/font_1343148_fm2xydeof9q.css"/>
+	<script src="laydate/laydate.js"></script>
+	<style type="text/css">
+		html,body{
+			width: 100%;
+			height: 100%;
+			background: #F9FAFD;
+		}
+	</style>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+	<iframe src="head.html" scrolling="no" width="100%" height="105"></iframe>
+	
+	<div class="warp">
+		<div class="container">
+			<p class="title" onclick="history.go(-1)">&lt; 返回上一级</p>
+			
+			<!-- <div class="dealmsg clearfix">
+				<div class="dealmsg_left">
+					<p class="dealmsg_title">
+						<i class="dealicon"></i><span>总交易金额</span>
+					</p>
+					<div class="deal_price">
+						<span>0</span>
+						<span>.</span>
+						<span>0</span>
+						<span>0</span>
+					</div>
+					<p class="deal_account">账户数 <span>2627</span></p>
+				</div>
+				<div class="dealmsg_right">
+					<p class="dealmsg_title">
+						<i class="dealicon2"></i><span>交易信息</span>
+					</p>
+					<div class="deal_msg">
+						<ul>
+							<li><span>总监管积分：</span> <span>0.00</span></li>
+							<li><span>剩余监管积分：</span> <span>32.82</span></li>
+							<li><span>上链状态：</span> <span>上链中...</span></li>
+						</ul>
+						<ul>
+							<li><span>消耗监管积分：</span> <span>0.00</span></li>
+							<li><span>回收积分：</span> <span>32.82</span></li>
+						</ul>
+					</div>
+				</div>
+			</div> -->
+			
+			<div class="recharge_detail">
+				<div class="recharge_time clearfix">
+					<strong>充值明细 </strong>
+					<div class="recharge">
+						<i style="margin:0 5px 0 20px;">时间</i>
+						<input type="text" id="time1">&nbsp;至&nbsp;<input type="text" id="time2">
+					</div>
+					<button type="button" class="sea_bth">
+						<i class="iconfont icon-sousuo"></i>搜索
+					</button>
+				</div>
+				
+				<div class="deals_main" style="padding: 0 20px;width: 1160px;">
+					<div class="xian"></div>
+					<table class="deals_tab">
+						<tr>
+							<th>交易对家</th>
+							<th>交易类型</th>
+							<th>方向</th>
+							<th>积分</th>
+							<th>交易时间</th>
+							<th>交易哈希</th>
+						</tr>
+						<tr>
+							<td>jZjf6UgXb38fRHAUMNQCT7jHfLrKvrn8x</td>
+							<td><div class="flex_center"><img class="payimg" src="images/zhuanzhang.png"> 转账</div></td>
+							<td class="green">收到</td>
+							<td>100 JJCC</td>
+							<td>2019-07-22 17：51：20</td>
+							<td width="350">4BAC4B03D68C9CC8EC76429DF58F5C98339597A6</td>
+						</tr>
+						<tr>
+							<td>jZjf6UgXb38fRHAUMNQCT7jHfLrKvrn8x</td>
+							<td><div class="flex_center"><img class="payimg" src="images/zhuanzhang.png"> 转账</div></td>
+							<td class="green">收到</td>
+							<td>100 JJCC</td>
+							<td>2019-07-22 17：51：20</td>
+							<td width="350">4BAC4B03D68C9CC8EC76429DF58F5C98339597A6</td>
+						</tr>
+						<tr>
+							<td>jZjf6UgXb38fRHAUMNQCT7jHfLrKvrn8x</td>
+							<td><div class="flex_center"><img class="payimg" src="images/zhuanzhang.png"> 转账</div></td>
+							<td class="green">收到</td>
+							<td>100 JJCC</td>
+							<td>2019-07-22 17：51：20</td>
+							<td width="350">4BAC4B03D68C9CC8EC76429DF58F5C98339597A6</td>
+						</tr>
+						<tr>
+							<td>jZjf6UgXb38fRHAUMNQCT7jHfLrKvrn8x</td>
+							<td><div class="flex_center"><img class="payimg" src="images/zhuanzhang.png"> 转账</div></td>
+							<td class="green">收到</td>
+							<td>100 JJCC</td>
+							<td>2019-07-22 17：51：20</td>
+							<td width="350">4BAC4B03D68C9CC8EC76429DF58F5C98339597A6</td>
+						</tr>
+						<tr>
+							<td>jZjf6UgXb38fRHAUMNQCT7jHfLrKvrn8x</td>
+							<td><div class="flex_center"><img class="payimg" src="images/zhuanzhang.png"> 转账</div></td>
+							<td class="green">收到</td>
+							<td>100 JJCC</td>
+							<td>2019-07-22 17：51：20</td>
+							<td width="350">4BAC4B03D68C9CC8EC76429DF58F5C98339597A6</td>
+						</tr>
+						<tr>
+							<td>jZjf6UgXb38fRHAUMNQCT7jHfLrKvrn8x</td>
+							<td><div class="flex_center"><img class="payimg" src="images/zhuanzhang.png"> 转账</div></td>
+							<td class="green">收到</td>
+							<td>100 JJCC</td>
+							<td>2019-07-22 17：51：20</td>
+							<td width="350">4BAC4B03D68C9CC8EC76429DF58F5C98339597A6</td>
+						</tr>
+					</table>
+					
+					<div class="clickmore">
+						加载更多 <img src="images/xialatubiao.png" alt="">
+					</div>
+				</div>
+			</div>
+			
+			<div class="recharge_detail">
+				<div class="recharge_time clearfix">
+					<strong>交易明细 </strong>
+					<div class="recharge">
+						<i style="margin:0 5px 0 20px;">时间</i>
+						<input type="text" id="time3">&nbsp;至&nbsp;<input type="text" id="time4">
+					</div>
+					<button type="button" class="sea_bth">
+						<i class="iconfont icon-sousuo"></i>搜索
+					</button>
+				</div>
+				
+				<div class="deals_main" style="padding: 0 20px;width: 1160px;">
+					<div class="xian"></div>
+					<table class="deals_tab">
+						<tr>
+							<th>交易对家</th>
+							<th>交易类型</th>
+							<th>方向</th>
+							<th>积分</th>
+							<th>交易时间</th>
+							<th>交易哈希</th>
+						</tr>
+						<tr>
+							<td>jZjf6UgXb38fRHAUMNQCT7jHfLrKvrn8x</td>
+							<td><div class="flex_center"><img class="payimg" src="images/zhuanzhang.png"> 转账</div></td>
+							<td class="green">收到</td>
+							<td>100 JJCC</td>
+							<td>2019-07-22 17：51：20</td>
+							<td width="350">4BAC4B03D68C9CC8EC76429DF58F5C98339597A6</td>
+						</tr>
+						<tr>
+							<td>jZjf6UgXb38fRHAUMNQCT7jHfLrKvrn8x</td>
+							<td><div class="flex_center"><img class="payimg" src="images/zhuanzhang.png"> 转账</div></td>
+							<td class="green">收到</td>
+							<td>100 JJCC</td>
+							<td>2019-07-22 17：51：20</td>
+							<td width="350">4BAC4B03D68C9CC8EC76429DF58F5C98339597A6</td>
+						</tr>
+						<tr>
+							<td>jZjf6UgXb38fRHAUMNQCT7jHfLrKvrn8x</td>
+							<td><div class="flex_center"><img class="payimg" src="images/zhuanzhang.png"> 转账</div></td>
+							<td class="green">收到</td>
+							<td>100 JJCC</td>
+							<td>2019-07-22 17：51：20</td>
+							<td width="350">4BAC4B03D68C9CC8EC76429DF58F5C98339597A6</td>
+						</tr>
+						<tr>
+							<td>jZjf6UgXb38fRHAUMNQCT7jHfLrKvrn8x</td>
+							<td><div class="flex_center"><img class="payimg" src="images/zhuanzhang.png"> 转账</div></td>
+							<td class="green">收到</td>
+							<td>100 JJCC</td>
+							<td>2019-07-22 17：51：20</td>
+							<td width="350">4BAC4B03D68C9CC8EC76429DF58F5C98339597A6</td>
+						</tr>
+						<tr>
+							<td>jZjf6UgXb38fRHAUMNQCT7jHfLrKvrn8x</td>
+							<td><div class="flex_center"><img class="payimg" src="images/zhuanzhang.png"> 转账</div></td>
+							<td class="green">收到</td>
+							<td>100 JJCC</td>
+							<td>2019-07-22 17：51：20</td>
+							<td width="350">4BAC4B03D68C9CC8EC76429DF58F5C98339597A6</td>
+						</tr>
+						<tr>
+							<td>jZjf6UgXb38fRHAUMNQCT7jHfLrKvrn8x</td>
+							<td><div class="flex_center"><img class="payimg" src="images/zhuanzhang.png"> 转账</div></td>
+							<td class="green">收到</td>
+							<td>100 JJCC</td>
+							<td>2019-07-22 17：51：20</td>
+							<td width="350">4BAC4B03D68C9CC8EC76429DF58F5C98339597A6</td>
+						</tr>
+					</table>
+					
+					<div class="clickmore">
+						加载更多 <img src="images/xialatubiao.png" alt="">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<!-- 最新交易end -->
+	<iframe src="foot.html" scrolling="no" width="100%" height="80"></iframe>
+	
+	<script>
+		$(function(){
+			laydate.render({
+			  elem: '#time1'
+			});
+			laydate.render({
+			  elem: '#time2'
+			});
+			laydate.render({
+			  elem: '#time3'
+			});
+			laydate.render({
+			  elem: '#time4'
+			});
+		})
+	</script>
+</body>
+</html>

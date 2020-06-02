@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>全球游戏联盟链区块链浏览器</title>
+	<link rel="icon" type="image/png" sizes="16x16" href="./images/ioc.png">
+	<link rel="stylesheet" type="text/css" href="css/reset.css"/>
+	<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	<script src="js/rem.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="http://at.alicdn.com/t/font_1343148_fm2xydeof9q.css"/>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	
+</head>
+<body>
+	<header class="myhead">
+		<i class="return iconfont icon-fanhui" onclick="javascript:history.back(-2);"></i>
+	</header>
+		
+	<div class="new_msg">
+		<p class="new_msgtitle shch">Current trade hash <i class="right iconfont icon-fuzhi btn" onclick="copyBtn()"></i></p>
+		<p class="shch_number dai1">
+			--
+		</p>
+	</div>
+	
+	<!-- 弹框 -->
+	<div class="copytan" style="display: none;">
+		Copy success
+	</div>
+	
+	<ul class="hash_detail data">
+		<li class="clearfix hash_detail_li">
+			<span class="left" style="width:50%">the type of transaction</span>
+			<span style="width:50%;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;" class="right">transfer accounts</span>
+		</li>
+		<li class="clearfix hash_detail_li">
+			<span class="left">Books</span>
+			<span class="right dailiu">--</span>
+		</li>
+		<li class="clearfix hash_detail_li">
+			<span class="left" style="width: 50%;">Transaction sponsor</span>
+			<span class="right dai2" style="width: 50%;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;">--</span>
+		</li>
+		<li class="clearfix hash_detail_li2">
+			<p>Transaction to</p>
+			<p class="dai4">--</p>
+		</li>
+		<li class="clearfix hash_detail_li">
+			<span class="left">fuel cost</span>
+			<span class="right pink dai5">--</span>
+		</li>
+		<li class="clearfix hash_detail_li">
+			<span style="width: 40%;" class="left">transfer amount</span>
+			<span style="width: 60%;overflow: hidden;" class="right pink dai3">--</span>
+		</li>
+	</ul>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js"></script>
+	<script type="text/javascript">
+		function copyBtn() {
+			new ClipboardJS('.btn',{text:function(trigger) {
+					return $(".dai1").text();
+				},
+			});
+			$(".copytan").show()
+			setInterval(function(){
+				$(".copytan").hide()
+			},2000)
+		}
+	</script>
+	<script src="js/apiurl.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js"></script>
+	<script>
+	function timestampToTime(timestamp) {
+		var date = new Date(timestamp * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+		Y = date.getFullYear() + '-';
+		M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+		D = date.getDate() + ' ';
+		h = date.getHours() + ':';
+		m = (date.getMinutes() < 10 ? '0'+(date.getMinutes()) : date.getMinutes()) + ':';
+		s = (date.getSeconds() < 10 ? '0'+(date.getSeconds()) : date.getSeconds());
+		return Y+M+D+h+m+s;
+	}
+	var hashval = window.sessionStorage.getItem("data2");
+	var lc = JSON.stringify({'id': 106,'jsonrpc': "2.0",'method': "eth_getTransactionByHash",'params': [ hashval ]});
+	$.ajax({
+		url:api,
+		dataType:'json',//服务器返回json格式数据
+		type:'POST',
+		data:lc,
+		contentType: "application/json",//这个参数也是header参数
+		cache:false,
+		success:function(data){
+			console.log(data)
+			if(data.result){
+				$(".gif").addClass("hide")
+				$(".dai1").text(data.result.hash)
+				$(".dai2").text(data.result.from)
+				$(".dai3").text(parseInt(data.result.value.slice(2),16).toString(10) / 1000000000000000000 + "ETH")
+				$(".dai4").text(data.result.to)
+				$(".dai5").text(parseInt(data.result.gas.slice(2),16).toString(10) / 1000000000 + "ETH")
+				$(".dailiu").text(parseInt(data.result.blockNumber.slice(2),16).toString(10))
+				
+	
+				$(".dai1").attr('data-clipboard-text',data.result.hash)
+			}else{
+				alert("Please enter the correct hash")
+			}
+		},
+		error:function(error){
+			alert("Please enter the correct hash")
+		}
+	})
+	
+	
+	</script>
+</body>
+</html>

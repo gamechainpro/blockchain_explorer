@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>全球游戏联盟链区块链浏览器</title>
+	<link rel="icon" type="image/png" sizes="16x16" href="./images/ioc.png">
+	<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	<link rel="stylesheet" href="css/swiper.min.css">
+	<script src="js/swiper.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="http://at.alicdn.com/t/font_1343148_fm2xydeof9q.css"/>
+	<script src="laydate/laydate.js"></script>
+	<style type="text/css">
+		html,body{
+			width: 100%;
+			height: 100%;
+			background: #F9FAFD;
+		}
+		table{
+			table-layout: fixed
+		}    
+		td{  
+			text-overflow:ellipsis;  
+			overflow: hidden;
+			 min-width: 10%;
+			 max-width: 30%;
+		}
+	</style>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	
+</head>
+<body>
+	<iframe src="head.html" width="100%" height="105"></iframe>
+	
+	<div class="warp">
+		<div class="container">
+			<p class="title" onclick="history.go(-1)">&lt; 返回上一级</p>
+			
+			<div class="deals_main">
+				<table class="deals_tab">
+					<thead>
+						<tr>
+							<th>区块高度</th>
+							<th>交易金额</th>
+							<th>交易费用</th>
+							<th>交易时间</th>
+							<th>交易哈希</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="gif">
+							<td colspan="5">
+								<img src="images/load.gif" alt="">
+							</td>
+						</tr>
+						<tr class="wu hide" style="border-top: 1px solid #f0f0f0;">
+							<td colspan="5">
+								暂无交易数据
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+<!-- 最新交易end -->
+	<iframe src="foot.html" scrolling="no" width="100%" height="80" style="position: fixed;left: 0;bottom: 0;"></iframe>
+	
+	<script src="js/apiurl.js"></script>
+	<script>
+		//日期
+		function timestampToTime(timestamp) {
+			var date = new Date(timestamp * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+			Y = date.getFullYear() + '-';
+			M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+			D = date.getDate() + ' ';
+			h = date.getHours() + ':';
+			m = (date.getMinutes() < 10 ? '0'+(date.getMinutes()) : date.getMinutes()) + ':';
+			s = (date.getSeconds() < 10 ? '0'+(date.getSeconds()) : date.getSeconds());
+			return Y+M+D+h+m+s;
+		}
+		
+		$(function(){
+			var str3 = window.sessionStorage.getItem("data3");
+			console.log(str3)
+			var can = {"jsonrpc":"2.0","method":"eth_getBlockByNumber","params":[ '0x' + Number(str3).toString(16) ,false],"id":2},
+			can = JSON.stringify(can)
+			$.ajax(api,{
+				data:can,
+				dataType:'json',//服务器返回json格式数据
+				type:'post',//HTTP请求类型
+				async: false,
+				contentType: "application/json",
+				success:function(res){
+					console.log(res)
+					if(res.result.transactions.length > 0){
+						for(var i = 0;i < res.result.transactions.length;i++){
+							can2 = {jsonrpc: "2.0", method: "eth_getTransactionByBlockNumberAndIndex", params: ["0x" + Number(str3).toString(16), "0x" + i], id: 229},
+							can2 = JSON.stringify(can2)
+							$.ajax({
+								url:api,
+								data:can2,
+								dataType:'json',//服务器返回json格式数据
+								type:'post',//HTTP请求类型
+								async: false,
+								contentType: "application/json",
+								success:function(data){
+									var liu = parseInt(data.result.value.slice(2),16).toString(10)
+									console.log(liu)
+
+									var val = liu  / 1000000000000000000
+
+									$(".gif").addClass("hide")
+									var html = '<tr>' +
+											' <td> ' + parseInt(data.result.blockNumber.slice(2),16).toString(10) + '</td>' + 
+											' <td>'+ val + "GC" +'</td>' + 
+											' <td> ' + parseInt(data.result.gas.slice(2),16).toString(10) / 1000000000 + "GC" + '</td>' + 
+											' <td>'+ timestampToTime(parseInt(res.result.timestamp.slice(2),16).toString(10)) +'</td>' + 
+											' <td title='+ data.result.hash +'> ' + data.result.hash + '</td>' + 
+										'</tr>'
+									$(".deals_tab tbody").append(html)
+								}
+							})
+						}
+					}else{
+						$(".wu").removeClass("hide")
+						$(".gif").addClass("hide")
+					}
+				},
+				error:function(error){
+					alert("请输入正确的格式")
+				}
+			});
+		})
+	</script>
+</body>
+</html>

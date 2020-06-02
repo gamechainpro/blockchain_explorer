@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>全球游戏联盟链区块链浏览器</title>
+	<link rel="icon" type="image/png" sizes="16x16" href="./images/ioc.png">
+	<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	<link rel="stylesheet" href="css/swiper.min.css">
+	<script src="js/swiper.min.js"></script>
+	<style type="text/css">
+		html,body{
+			width: 100%;
+			height: 100%;
+			background: #F9FAFD;
+		}
+		.swiper-pagination-bullet-active{
+			opacity: 1;
+			background: #fff!important;
+		}
+		.swiper-pagination-bullet {
+			width: 8px;
+			height: 8px;
+			display: inline-block;
+			border-radius: 100%;
+			background: transparent;
+			border: 1px solid #fff;
+		}
+		.deals_tab a{color: #007AFF;}
+		table{
+			table-layout: fixed  
+		}    
+		td{  
+			text-overflow:ellipsis;  
+			overflow: hidden;
+			 min-width: 10%;
+			 max-width: 30%;
+		}
+	</style>
+	<script src="./js/jquery.min.js"></script>
+</head>
+<body>
+	<iframe src="head.html" width="100%" height="105" scrolling="no"></iframe>
+	
+	<div class="warp">
+		<!-- 轮播start -->
+		<div class="swiper-container banner">
+			<div class="swiper-wrapper">
+				<div class="swiper-slide">
+					<div class="container">
+						<div class="banner_left">
+							<p style="font-size:40px">Global game alliance chain browser</p>
+							<p>Global game alliance chain research and development</p>
+						</div>
+						<img src="images/banimg.png" class="banner_right" alt="">
+					</div>
+				</div>
+				<div class="swiper-slide">
+					<div class="container">
+						<div class="banner_left">
+							<p style="font-size:40px">Global game alliance chain browser</p>
+							<p>Global game alliance chain research and development</p>
+						</div>
+						<img src="images/banimg.png" class="banner_right" alt="">
+					</div>
+				</div>
+				<div class="swiper-slide">
+					<div class="container">
+						<div class="banner_left">
+							<p style="font-size:40px">Global game alliance chain browser</p>
+							<p>Global game alliance chain research and development</p>
+						</div>
+						<img src="images/banimg.png" class="banner_right" alt="">
+					</div>
+				</div>
+			</div>
+			<!-- 如果需要分页器 -->
+			<div class="swiper-pagination"></div>
+		</div>
+		<!-- 轮播end -->
+
+		<!-- 搜索框start -->
+		<div class="search">
+			<input type="search" class="sear" value="" placeholder="Please enter wallet address, transaction hash, block height">
+			<input type="image" class="icon-sousuo" src="images/search.png">
+		</div>
+		<!-- 搜索框end -->
+
+		<!-- 最新交易start -->
+		<div class="latest_deals clearfix">
+			<div class="deals_title">
+				<span class="deals_title_left">
+					<img src="images/zuixinjiaoyi.png" alt="404" width="22">The latest block
+				</span>
+			</div>
+			<div class="deals_main example ex-1">
+				<table class="deals_tab" id="tb2">
+					<thead>
+						<tr>
+							<th style="width: 20%;" class="number">Block height</th>
+							<th style="width: 20%;">the type of transaction</th>
+							<th style="width:20%">trading hour</th>
+							<th style="width: 20%;">volume of business</th>
+							<th style="width:20%">Block the hash</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="gif">
+							<td colspan="4">
+								<img src="images/load.gif" alt="">
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+<!-- 最新交易end -->
+	<iframe src="foot.html" width="100%" height="80" scrolling="no" style="position: fixed;left: 0;bottom: 0;"></iframe>
+	<script src="js/apiurl.js"></script>
+	<script>
+		//日期
+		function timestampToTime(timestamp) {
+			var date = new Date(timestamp * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+			Y = date.getFullYear() + '-';
+			M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+			D = date.getDate() + ' ';
+			h = date.getHours() + ':';
+			m = (date.getMinutes() < 10 ? '0'+(date.getMinutes()) : date.getMinutes()) + ':';
+			s = (date.getSeconds() < 10 ? '0'+(date.getSeconds()) : date.getSeconds());
+			return Y+M+D+h+m+s;
+		}
+		var mySwiper = new Swiper ('.swiper-container', {
+			loop: true, // 循环模式选项
+			autoplay:true,
+			
+			// 如果需要分页器
+			pagination: {
+			  el: '.swiper-pagination',
+			}
+		})
+		
+		$(".icon-sousuo").click(function(){
+			var sear = $(".sear").val();
+			var searval = sear.replace(/\s*/g,""); //去掉空格
+			// 请输入钱包地址：都是以“j”开头的、区块哈希：长度、区块高度:都是数字
+			function yanzhen(zhi){  //验证是不是数字
+				var reg = /^\+?[1-9][0-9]*$/;
+				var patt = new RegExp(reg);
+				return patt.test(zhi)
+			}
+			function check(str){  //验证是不是数字和字母组成
+			    return /^[\da-z]+$/i.test(str);
+			}
+			if(searval.length == 42 && check(searval)){  //钱包地址判断
+				window.location.href="details.html";
+				window.sessionStorage.setItem("data",searval);
+			}else if(searval.length == 66 && check(searval)){	//哈希判断
+				window.location.href="details2.html";
+				window.sessionStorage.setItem("data2",searval);
+			}else if(yanzhen(searval)){							//区块高度
+				window.location.href="details3.html";
+				window.sessionStorage.setItem("data3",searval);
+			}else if(searval == ""){
+				alert("Input cannot be empty！")
+			}else{
+				alert("Please enter the correct format")
+			}
+		})
+		
+		var shuzu = [];
+		$(function(){
+			var ledger;
+			var can = JSON.stringify({"id":9999999999,"jsonrpc":"2.0","method":"net_listening","params":[]});
+			var _data = $.ajax({
+				// url:api + "/deallist",
+				url:api,
+				dataType:'json',//服务器返回json格式数据
+				type:'POST',
+				data:can,
+				contentType: "application/json",//这个参数也是header参数
+				cache:false,
+				success:function(res){
+					//console.log(res)
+					var can2 = JSON.stringify({"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":1});
+					var  jjh = {};
+					if(res.result){
+						// hex_change
+						 $.ajax({
+							url:api,
+							dataType:'json',//服务器返回json格式数据
+							type:'POST',
+							data:can2,
+							contentType: "application/json",//这个参数也是header参数
+							//cache:false,
+							success:function(data){
+								//console.log(data.result)
+								for(let i = 0;i<20;i++){
+									var gaodu = data.result - i.toString(16);
+									//Number(gaodu).toString(16)
+									var can3 = {"jsonrpc":"2.0","method":"eth_getBlockByNumber","params":[ '0x' + Number(gaodu).toString(16) ,false],"id":2};
+									can3 = JSON.stringify(can3)
+									//console.log(can3)
+									 jjh[i] = $.ajax({
+										url:api,
+										dataType:'json',//服务器返回json格式数据
+										type:'POST',
+										data:can3,
+										contentType: "application/json",//这个参数也是header参数
+										cache:false,
+										async: false,
+										success:function(res){}
+									})
+								}
+
+								//这里放循环==============================================
+								var obj = {}
+								for(var q = 0;q<20;q++){
+									obj[q] = jjh[q].responseJSON.result
+								}
+								console.log(obj[0])
+								$(".gif").hide();
+								for(var o = 0;o<20;o++){
+									var html = "<tr>"+
+											"<td><a class='tiaoz' href='details3.html' style='color:#333'>"+ parseInt(obj[o].number).toString(10) +"</a></td>"+
+											"<td style='position:relative;text-indent: 23px;'><img style='position: absolute;top: 20px;left:35px;' src='images/zhuanzhang.png'>transfer accounts</td>"+
+											"<td>"+timestampToTime(obj[o].timestamp.toString(10)) +"</td>"+
+											"<td>"+ obj[o].transactions.length +"</td>"+
+											"<td 'title="+ obj[o].hash +">"+ obj[o].hash +"</td>"+
+										"</tr>"
+									$(".deals_tab tbody").append(html)
+									$(".tiaoz").click(function(){
+										console.log(this.innerHTML)
+										window.sessionStorage.setItem("data3",this.innerHTML);
+									})
+								}
+							}
+						});
+					}
+				},
+			})
+
+
+		})
+	</script>
+
+</body>
+</html>

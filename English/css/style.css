@@ -1,0 +1,597 @@
+
+/**
+ * Eric Meyer's Reset CSS v2.0 (http://meyerweb.com/eric/tools/css/reset/)
+ * http://cssreset.com
+ */
+ 
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video{
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  font-weight: normal;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section{
+  display: block;
+}
+ol, ul, li{
+  list-style: none;
+}
+blockquote, q{
+  quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after{
+  content: '';
+  content: none;
+}
+table{
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+ 
+/* custom */
+a{
+  color: #7e8c8d;
+  text-decoration: none;
+  -webkit-backface-visibility: hidden;
+}
+::-webkit-scrollbar{
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track-piece{
+  background-color: rgba(0, 0, 0, 0.2);
+  -webkit-border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:vertical{
+  height: 5px;
+  background-color: rgba(125, 125, 125, 0.7);
+  -webkit-border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:horizontal{
+  width: 5px;
+  background-color: rgba(125, 125, 125, 0.7);
+  -webkit-border-radius: 6px;
+}
+html, body{
+  width: 100%;
+  font-family: "Arial", "Microsoft YaHei", "黑体", "宋体", "微软雅黑", sans-serif;
+}
+body{
+  line-height: 1;
+  -webkit-text-size-adjust: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+html{
+  overflow-y: scroll;
+}
+.lefe{float: left;}
+.right{float: right;}
+ .mt30{margin-top: 30px;}
+ .mt20{margin-top: 20px;}
+/*清除浮动*/
+.clearfix:after{
+  content: " ";
+  display: inline-block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+.clearfix{
+	zoom: 1;
+}
+ 
+/*隐藏*/
+.none{
+  display: none;
+}
+/* reset.css---end */
+
+@font-face {
+	font-family: 'Stencil'; 
+	src: url(../font/Stencil.ttf); 
+} 
+
+.index_head{
+	width: 100%;
+	height: 105px;
+	background:linear-gradient(109deg,rgba(146,91,255,1) 0%,rgba(68,109,255,1) 100%);
+}
+.index_head a{color: #FFFFFF;text-decoration: none;}
+.index_nav{float: left;}
+.index_nav li{
+	line-height: 101px;
+	font-size: 18px;
+	color: #fff;
+	float: left;
+	margin-left:66px;
+}
+.container{
+	width: 1200px;
+	height: 100%;
+	margin: 0 auto;
+}
+.country_list{
+	float: right;
+	height: 20px;
+	margin: 42px 0;
+}
+.country li{
+	width: 26px;
+	height: 15px;
+	margin-bottom: 5px;
+}
+.country li img{
+	width: 100%;
+}
+.logo{
+	width:67px;
+	height:105px;
+	font-size:40px;
+	font-family:Stencil;
+	font-weight:400;
+	line-height:105px;
+	color:rgba(255,255,255,1);
+	float: left;
+}
+.btn{
+	border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 10px solid #fff;
+	display: inline-block;
+	float: right;
+	margin: 3px 0 3px 28px;
+}
+.country_list ul{display: none;}
+.country_list li{
+	width: 100%;
+	line-height: 30px;
+	display: flex;
+	align-items: center;
+	color: #FFFFFF;
+	font-size: 14px;
+}
+.active{
+	border-bottom: 4px solid #fff;
+}
+.active a{font-weight: bold;}
+.country_list li span{flex: 1;text-align: right;}
+.banner{
+	width: 100%;
+	height:395px;
+	background:linear-gradient(109deg,rgba(146,91,255,1) 0%,rgba(68,109,255,1) 100%);
+	display: inline-block;
+	border-top: 1px solid rgba(255,255,255,.5);
+}
+.banner_warp{
+	width: 1200px;
+	height: 100%;
+	margin: 0 auto;
+}
+.banner_left{
+	height: 100%;
+	float: left;
+}
+.banner_left p:first-child{
+	font-size:57px;
+	font-family:Microsoft YaHei;
+	font-weight:bold;
+	line-height:75px;
+	color:rgba(255,255,255,1);
+	margin-top: 95px;
+}
+.banner_left p:last-child,.ban_text{
+	font-size:23px;
+	font-family:Microsoft YaHei;
+	font-weight:400;
+	line-height:30px;
+	color:rgba(255,255,255,1);
+	text-align: center;
+	margin-top: 10px;
+}
+.banner_right{
+	width: 408px;
+	float: right;
+}
+.search{
+	width:900px;
+	height:60px;
+	background:rgba(255,255,255,1);
+	box-shadow:0px 2px 4px rgba(0,0,0,0.16);
+	opacity:1;
+	border-radius:5px;
+	margin: 20px auto;
+}
+.search input[type="search"]{
+	width: 830px;
+	height: 45px;
+	font-size: 16px;
+	border: 0;
+	padding: 0 26px;
+	border-right: 1px solid #EBEBEB;
+	margin: 8px 0;
+	outline: 0;
+	float: left;
+}
+.search input[type="image"]{
+	float: right;
+	width: 29px;
+	height: 28px;
+	margin: 16px 20px;
+	border: 0;
+	outline: 0;
+}
+.latest_deals{
+	width: 1200px;
+	height: auto;
+	margin: 0 auto;
+}
+.deals_title{
+	width: 100%;
+    height: auto;
+    padding: 20px 0;
+    display: inline-block;
+}
+.deals_title_left img{
+	float: left;
+	margin: 2px 15px 0 0;
+}
+.deals_title_left{
+	font-size:18px;
+	font-family:Microsoft YaHei;
+	font-weight:bold;
+	line-height:24px;
+	color:rgba(51,51,51,1);
+	float: left;
+}
+.deals_title_more{
+	float: right;
+	font-size:18px;
+	line-height:24px;
+	color:rgba(167,167,167,1);
+}
+.deals_title_more img{
+	float: right;
+	margin: 2px 0 0 10px;
+}
+.deals_main{
+	width: 1100px;
+    height: auto;
+    background: rgba(255,255,255,1);
+    box-shadow: 0px 6px 12px rgba(206,210,214,0.16);
+    border-radius: 5px;
+    padding: 0 50px;
+	position: relative;
+}
+.deals_tab{width: 100%;}
+.deals_main tr{height: 60px;line-height: 60px;}
+.deals_main tr:not(:first-child){border-bottom:1px solid rgba(235,235,235,1);}
+.deals_main tr td{text-align: center;font-size:14px;}
+.deals_main tr:not(:first-child),{border-bottom: 1px solid #EBEBEB;}
+.green{color: #9ADC44;}
+.pink{color: #FF8373!important;}
+.deals_main tr td:last-child{color: #000;text-overflow:ellipsis;overflow: hidden;}
+.payimg{margin-right: 5px;}
+.flex_center{
+	display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.index_foot{
+	width:100%;
+	height:80px;
+	line-height:80px;
+	background:rgba(255,255,255,1);
+	box-shadow:8px 0px 6px rgba(0,0,0,0.16);
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	text-align: center;
+	font-size:14px;
+}
+.index_foot a{color: #2755D6;}
+.warp{
+	width: 100%;
+	padding-bottom: 100px;
+}
+.warp2{
+	width:100%;
+	height:calc(100% - 185px);
+	background:linear-gradient(313deg,rgba(41,65,203,1) 0%,rgba(39,146,254,1) 100%);
+	opacity:1;
+}
+.down_left{
+	width: 305px;
+	height: auto;
+	float: left;
+}
+.down_left button:first-child{
+	width:305px;
+	height:80px;
+	color:#fff;
+	background:rgba(37,163,254,1);
+	box-shadow:0px 6px 20px rgba(13,55,140,0.25);
+	border-radius:4px;
+	border:none;
+	line-height: 80px;
+	font-size:28px;
+	text-align:left;
+}
+.down_left button:last-child{
+	width:305px;
+	height:80px;
+	color:#fff;
+	background:rgba(165,200,69,1);
+	box-shadow:0px 6px 20px rgba(13,55,140,0.25);
+	border-radius:4px;
+	border:none;
+	line-height: 80px;
+	font-size:28px;
+	text-align:left;
+}
+.down_left img{width: 43px;float: left;margin: 10px 18px;}
+.download{display: block;margin-top: 110px;width: 598px;}
+
+.title{
+	color: #A7A7A7;
+	margin: 16px 0;
+	font-size:16px;
+	cursor: pointer;
+}
+.down_main{
+	width:1140px;
+	height:auto;
+	background:rgba(255,255,255,1);
+	box-shadow:0px 3px 6px rgba(206,210,214,0.16);
+	padding: 26px 30px;
+	display: inline-block;
+	line-height: 28px;
+}
+.down_main span,.down_main img{
+	float: left;
+}
+.down_main span:nth-child(2){
+	margin-left: 20px;
+	color: #007AFF;
+}
+.down_main img{
+	margin: 0px 30px;
+	cursor: pointer;
+}
+.down_main2{
+	width: 1030px;
+	padding: 15px 85px;
+	background:rgba(255,255,255,1);
+	box-shadow:0px 3px 6px rgba(206,210,214,0.16);
+	border-radius:5px;
+	display: inline-block;
+}
+.down_main2 li{
+	font-family:Microsoft YaHei;
+	line-height:21px;
+	margin: 16px 0;
+	height: 21px;
+}
+.down_main2 li span:first-child{
+	width: 210px;
+	float: left;
+	font-size:18px;
+	font-weight: 500;
+}
+.down_main2 li span:last-child{
+	width: auto;
+	float: left;
+	font-size:16px;
+	color: #A7A7A7;
+	word-wrap: break-word;
+	max-width: 1000px;
+}
+.dealmsg{
+	width: 100%;
+	height: auto;
+	display: inline-block;
+}
+.dealmsg_left{
+	width: 530px;
+	padding: 20px;
+	background:rgba(255,255,255,1);
+	box-shadow:0px 3px 6px rgba(0,0,0,0.16);
+	display: inline-block;
+	float: left;
+}
+.dealicon{
+	width: 20px;
+	height: 20px;
+	display: inline-block;
+	background: url(../images/zongjiaoyijine.png);
+	float: left;
+	margin: 5px 10px 0 0;
+}
+.dealmsg_title{
+	height: 30px;
+	line-height: 30px;
+	display: block;
+	font-size:18px;
+	font-weight:bold;
+}
+.dealmsg_title span{
+	font-size:20px;
+	font-weight:bold;
+}
+.deal_price{
+	width:380px;
+	height:80px;
+	margin: 28px auto;
+}
+.deal_price span{
+	width: 80px;
+	height: 80px;
+	background:rgba(39,85,214,1);
+	border-radius:5px;
+	display: inline-block;
+	float: left;
+	text-align: center;
+	line-height: 80px;
+	color: #fff;
+	font-size: 36px;
+}
+.deal_price span:not(:first-child){
+	margin-left: 20px;
+}
+.deal_account{
+	font-size:16px;
+	height: 31px;
+	line-height: 31px;
+	display: block;
+}
+.deal_account span{
+	font-size: 24px;
+	font-weight: 600;
+	margin-left: 20px;
+	padding: 0 16px;
+	border-bottom: 1px solid #ccc;
+}
+.dealmsg_right{
+	width: 530px;
+	padding: 20px;
+	background:rgba(255,255,255,1);
+	box-shadow:0px 3px 6px rgba(0,0,0,0.16);
+	display: inline-block;
+	float: right;
+}
+.dealicon2{
+	width: 18px;
+	height: 22px;
+	display: inline-block;
+	background: url(../images/jiaoyixinxi.png);
+	float: left;
+	margin: 5px 10px 0 0;
+}
+.deal_msg{
+	padding:0 64px;
+	height: auto;
+}
+.deal_msg ul{
+	width: 50%;
+	float: left;
+	margin-top: 12px;
+}
+.deal_msg ul li{
+	line-height: 52px;
+}
+.deal_msg ul li span:first-child{
+	font-size:16px;
+	width: 112px;
+	display: inline-block;
+	text-align: right;
+	color: #333333;
+}
+.deal_msg ul li span:last-child{
+	font-weight:bold;
+}
+.recharge_detail{
+	width: 100%;
+	height: auto;
+	display: inline-block;
+}
+.recharge_time{
+	width: 100%;
+	height: 30px;
+	margin: 30px 21px 20px 0;
+}
+.recharge_time strong{
+	font-size:18px;
+	font-family:Microsoft YaHei;
+	font-weight:bold;
+	line-height:24px;
+	color:rgba(51,51,51,1);
+	opacity:1;
+}
+.recharge_time div{
+	display: inline-block;
+}
+.recharge_time div input{
+	width: 87px;
+    height: 30px;
+    border: 1px solid rgba(223,223,223,1);
+    border-radius: 5px;
+    padding-right: 20px;
+	padding-left: 5px;
+}
+.sea_bth{
+	width:100px;
+	height:30px;
+	background:rgba(39,85,214,1);
+	border: none;
+	color: #fff;
+	border-radius: 5px;
+	margin-left: 10px;
+}
+.deals_main th,.deals_main td{min-width: 70px;}
+.xian{
+	width: 1200px;
+	border-top: 1px solid #CBCBCB;
+	position: absolute;
+	top: 60px;
+	left: 0;
+}
+.clickmore{
+	height: 60px;
+	line-height: 60px;
+	color: #A7A7A7;
+	font-size: 14px;
+	text-align: center;
+}
+.recharge input{
+	background:#fff url(../images/xialatubiao.png) no-repeat 95px center;
+}
+.swiper-container{margin:-6px auto auto auto!important}
+
+
+.box_model{
+	width: 1160px;
+	margin: 20px auto 0 auto;
+	padding: 20px;
+	box-shadow:0px 1px 2px rgba(0,0,0,0.16);
+	background: #fff;
+}
+
+.msg_model{
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	font-size: 16px;
+}
+.model_left{
+	width: 500px;
+	height:50px;
+	float: left;
+	padding-left: 50px;
+}
+.model_right{
+	width: 500px;
+	height: 50px;
+	float: left;
+	text-align: right;
+	padding-right: 50px;
+}
+.hide{
+	display: none;
+}

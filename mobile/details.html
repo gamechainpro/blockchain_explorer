@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>全球游戏联盟链区块链浏览器</title>
+	<link rel="icon" type="image/png" sizes="16x16" href="./images/ioc.png">
+	<link rel="stylesheet" type="text/css" href="css/reset.css"/>
+	<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	<script src="js/rem.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="http://at.alicdn.com/t/font_1343148_fm2xydeof9q.css"/>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	
+	<!-- 日历 -->
+	<link rel="stylesheet" type="text/css" href="css/dateRange.css"/>
+	<script src="js/dateRange.js"></script>
+	<style type="text/css">
+		table{
+			table-layout: fixed;
+		}
+		td{text-overflow:ellipsis;overflow: hidden;}
+		a{text-decoration: none;color: #333;}
+	</style>
+</head>
+<body>
+	<!-- 钱包搜索详情 -->
+	<header class="myhead">
+		<i class="return iconfont icon-fanhui" onclick="javascript:history.back(-2);"></i>
+	</header>
+		
+	<div class="new_msg">
+		<p class="new_msgtitle"><i class="newimg"></i> <i class="balan">最新交易</i></p>
+		<div class="msg_model">
+			<div class="model_left">
+				余额 : <span class="balance underline"></span>
+			</div>
+		</div>
+	</div>
+	
+	<div id="tan"></div>
+	
+	<script src="js/apiurl.js"></script>
+
+	<script type="text/javascript">
+		function timestampToTime(timestamp) {
+			var date = new Date(timestamp * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+			Y = date.getFullYear() + '-';
+			M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+			D = date.getDate() + ' ';
+			h = date.getHours() + ':';
+			m = (date.getMinutes() < 10 ? '0'+(date.getMinutes()) : date.getMinutes()) + ':';
+			s = (date.getSeconds() < 10 ? '0'+(date.getSeconds()) : date.getSeconds());
+			return Y+M+D+h+m+s;
+		}
+		var str = window.sessionStorage.getItem("data");
+		console.log(str)
+		var canshu = {'id': 155,'jsonrpc': "2.0",'method': "eth_getBalance",'params': [ str , "latest"]},
+		
+		canshu = JSON.stringify(canshu)
+		$.ajax({
+			url:api,
+			dataType:'json',//服务器返回json格式数据
+			type:'POST',
+			data:canshu,
+			contentType: "application/json",//这个参数也是header参数
+			cache:false,
+			success:function(data){
+				console.log(data)
+				if(data.result){
+					$(".underline").text((parseInt(data.result.slice(2),16).toString(10)) / 1000000000000000000 + "GC")
+				}else{
+					alert("请输入正确的钱包地址")
+				}
+			},
+			error:function(error){
+				alert("请输入正确的钱包地址")
+			}
+		})
+	</script>
+</body>
+</html>

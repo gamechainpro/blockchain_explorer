@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	<body>
+		<header class="index_head">
+			<div class="container clearfix">
+				<img style="height: 51px;margin: 27.5px 0;width: 305px;" class="logo" src="images/logo.png" >
+				<ul class="index_nav">
+					<li class="active"><a href="index.html" target="_blank">home</a></li>
+					<!-- <li><a href="index1.html">下载SLC</a></li>
+					<li><a href="">关于我们</a></li> -->
+				</ul>
+				
+				<div class="country_list">
+					<p class="language" style="font-size: 14px;color: #fff;cursor: pointer;">
+						<img style="float: left;" class="cheinese" src="../images/mei.jpg" width="26" height="18" alt=""><span style="float: left;line-height: 18px;
+						text-align: left;padding-left: 10px;">English</span>
+						<span class="btn"></span>
+					</p>
+					<ul style="margin-top:30px;">
+						<li onclick="top.location.href='../index.html'" style="cursor: pointer;">
+							<img style="float: left;" class="cheinese" src="../images/guoqi.png" height="18" alt=""><span style="float: left;line-height: 18px;
+							text-align: left;padding-left: 10px;">Chinese</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</header>
+	</body>
+	<script src="js/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(".language").click(function(){
+			$(this).next("ul").slideToggle()
+		})
+	</script>
+</html>

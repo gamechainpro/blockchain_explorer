@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>全球游戏联盟链区块链浏览器</title>
+	<link rel="icon" type="image/png" sizes="16x16" href="./images/ioc.png">
+	<link rel="stylesheet" type="text/css" href="css/reset.css"/>
+	<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	<script src="js/rem.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="http://at.alicdn.com/t/font_1343148_fm2xydeof9q.css"/>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+	<header class="myhead">
+		<i class="return iconfont icon-fanhui" onclick="javascript:history.back(-1);"></i>
+	</header>
+		
+	<div class="new_msg">
+		<p class="new_msgtitle shch">当前交易哈希 <i class="right iconfont icon-fuzhi" id="copy_btn"></i></p>
+		<p class="shch_number" data-clipboard-text="4BAC4B03D68C9CC8EC76429DF58F5C98339597A6ED041325D7289D83E3104107">
+			
+		</p>
+	</div>
+	
+	<!-- 弹框 -->
+	<div class="copytan" style="display: none;">
+		复制成功
+	</div>
+	
+	<ul class="hash_detail data">
+		<li class="clearfix hash_detail_li">
+			<span class="left">交易类型</span>
+			<span class="right"><i class="dealimg"></i></span>
+		</li>
+		<li class="clearfix hash_detail_li">
+			<span class="left">账本号</span>
+			<span class="right">--</span>
+		</li>
+		<li class="clearfix hash_detail_li">
+			<span class="left">交易发起方</span>
+			<span class="right">--</span>
+		</li>
+		<li class="clearfix hash_detail_li">
+			<span class="left">燃料费用</span>
+			<span class="right pink">0.0001</span>
+		</li>
+		<li class="clearfix hash_detail_li">
+			<span class="left">转账金额</span>
+			<span class="right pink">--</span>
+		</li>
+		<li class="clearfix hash_detail_li">
+			<span class="left">交易时间</span>
+			<span class="right">--</span>
+		</li>
+		<li class="clearfix hash_detail_li">
+			<span class="left">交易结果</span>
+			<span class="right green">--</span>
+		</li>
+		<li class="clearfix hash_detail_li2">
+			<p>交易对家</p>
+			<p>--</p>
+		</li>
+		<li class="clearfix hash_detail_li2">
+			<p>交易备注</p>
+			<p>--</p>
+		</li>
+	</ul>
+	
+	<script src="js/apiurl.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js"></script>
+	<script>
+	$(function(){
+		var clipboard = new ClipboardJS('#copy_btn',{  
+			text: function(trigger){ 
+				$(".copytan").show().delay(1000).hide(100);
+				return trigger.getAttribute('data-clipboard-text');
+			}
+		});
+		function timestampToTime(timestamp) {
+		   var date = new Date(timestamp * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+		   Y = date.getFullYear() + '-';
+		   M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+		   D = date.getDate() + ' ';
+		   h = date.getHours() + ':';
+		   m = (date.getMinutes() < 10 ? '0'+(date.getMinutes()) : date.getMinutes()) + ':';
+		   s = (date.getSeconds() < 10 ? '0'+(date.getSeconds()) : date.getSeconds());
+		   return Y+M+D+h+m+s;
+		}
+		var str = window.sessionStorage.getItem("key");
+		console.log(str)
+		$.ajax({
+			url: api + '/hashval',
+			type:"post",
+			data:{hashval:str},
+			success:function(data){
+				//console.log(data);
+				var jieg = data.transaction.result;
+				if(jieg == "tesSUCCESS"){
+					jieg = "交易成功"
+				}else if(jieg == "tecNO_DST"){
+					jieg = "交易失败"
+				}
+				$(".shch_number").html(data.transaction.hash)
+				var shu1 = data.transaction.type = "sent" ? "转账" : "收到";
+				$(".data li:nth-child(1) span:last-child").append(shu1)
+				$(".data li:nth-child(2) span:last-child").html(data.transaction.ledger)
+				$(".data li:nth-child(3) span:last-child").html(data.transaction.account)
+				$(".data li:nth-child(4) span:last-child").html(data.transaction.fee)
+				$(".data li:nth-child(5) span:last-child").html(data.transaction.amount.value + data.transaction.amount.currency)
+				$(".data li:nth-child(6) span:last-child").html(timestampToTime(data.transaction.date))
+				$(".data li:nth-child(7) span:last-child").html(jieg)
+				$(".data li:nth-child(8) p:last-child").html(data.transaction.counterparty)
+				$(".data li:nth-child(9) p:last-child").html(data.transaction.memos)
+			}
+		})
+	});
+	</script>
+</body>
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>全球游戏联盟链区块链浏览器</title>
+	<link rel="icon" type="image/png" sizes="16x16" href="./images/ioc.png">
+	<link rel="stylesheet" type="text/css" href="css/reset.css"/>
+	<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	<script src="js/rem.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="http://at.alicdn.com/t/font_1343148_fm2xydeof9q.css"/>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	
+	<!-- 日历 -->
+	<link rel="stylesheet" type="text/css" href="css/dateRange.css"/>
+	<script src="js/dateRange.js"></script>
+	<style type="text/css">
+		table{
+			table-layout: fixed;
+		}
+		td{
+			text-overflow:ellipsis;  
+			overflow: hidden;  
+		}
+		a{text-decoration: none;color: #333;}
+	</style>
+</head>
+<body>
+	<header class="myhead">
+		<i class="return iconfont icon-fanhui" onclick="javascript:history.back(-1);"></i>
+	</header>
+		
+	<!-- <div class="new_msg">
+		<p class="new_msgtitle"><i class="newimg"></i>最新交易</p>
+		<div class="new_shu">
+			<div>0</div>
+			<div>.</div>
+			<div>0</div>
+			<div>0</div>
+		</div>
+		<p class="new_msg2">
+			<span>余额</span>
+			<span>2627</span>
+		</p>
+	</div> -->
+	
+	<!-- <div class="new_msg" style="padding-bottom: 0.16rem;">
+		<p class="new_msgtitle"><i class="newimg2"></i>交易信息</p>
+		<ul class="new_msgmain">
+			<li class="clearfix">
+				<span class="left">总监管积分：</span>
+				<span class="right">0.00</span>
+			</li>
+			<li class="clearfix">
+				<span class="left">消耗监管积分：</span>
+				<span class="right">0.00</span>
+			</li>
+			<li class="clearfix">
+				<span class="left">剩余监管积分：</span>
+				<span class="right">32.82</span>
+			</li>
+			<li class="clearfix">
+				<span class="left">回收积分：</span>
+				<span class="right">46.24</span>
+			</li>
+			<li class="clearfix">
+				<span class="left">上链状态：</span>
+				<span class="right">上链中...</span>
+			</li>
+		</ul>
+	</div> -->
+	
+	<!-- <div class="deal_detail">
+		<p class="clearfix deal_detail_title">
+			<span class="left">交易明细</span>
+			<span class="right ta_date" id="div_date1">
+				<i class="iconfont icon-xinming-rili"></i>
+				<span class="date_title" id="date1">
+					筛选时间
+				</span>
+			</span>
+		</p>
+		<p>时间 <span class="time">2019-07-05 至 2019-08-05</span></p>
+	</div> -->
+	
+	<div style="position: relative;">
+		<div class="xian"></div>
+		<table class="deallist">
+			<tr>
+				<th>区块高度</th>
+				<th>方向</th>
+				<th>GSL</th>
+				<th>交易时间</th>
+				<th>交易哈希</th>
+			</tr>
+		</table>
+	</div>
+	
+	<div id="tan"></div>
+	
+	<script src="js/apiurl.js"></script>
+	<script type="text/javascript">
+		function FormatDate(timestamp) {
+		   var date = new Date(timestamp * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+		   Y = date.getFullYear() + '-';
+		   M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+		   D = date.getDate() + ' ';
+		   h = date.getHours() + ':';
+		   m = (date.getMinutes() < 10 ? '0'+(date.getMinutes()) : date.getMinutes()) + ':';
+		   s = (date.getSeconds() < 10 ? '0'+(date.getSeconds()) : date.getSeconds());
+		   return Y+M+D+h+m+s;
+		}
+		var date = new Date();
+		var dateyes = new Date(new Date() - 24 * 60 * 60 * 1000);
+		var tomorrow = new Date(new Date() * 1 + 24 * 60 * 60 * 1000);
+		var start = this.FormatDate(date); //今天日期
+		var end = this.FormatDate(tomorrow); //明天日期
+		var dateRange1 = new pickerDateRange('date1', {
+			stopToday: false,
+			isTodayValid: false,
+			// startDate: start,
+			// endDate: end,
+			needCompare: false,
+			// defaultText: ' 离开 ',
+			autoSubmit: false,
+			theme: 'ta'
+		});
+	  </script>
+	<script type="text/javascript">
+		$(".mulu").click(function(){
+			$(".menu").slideToggle();
+		})
+		$(".date_title").click(function(){
+			$("#tan").show()
+		})
+		$(".frm_btn input").click(function(){
+			$("#tan").hide()
+			var str = $(".date_title").html()
+			$(".time").text(str)
+		})
+		$("#tan").click(function(){
+			$("#tan").hide()
+			var str = $(".date_title").html()
+			$(".time").text(str)
+		})
+		
+		//日期
+		function timestampToTime(timestamp) {
+			var date = new Date(timestamp * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+			Y = date.getFullYear() + '-';
+			M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+			D = date.getDate() + ' ';
+			h = date.getHours() + ':';
+			m = (date.getMinutes() < 10 ? '0'+(date.getMinutes()) : date.getMinutes()) + ':';
+			s = (date.getSeconds() < 10 ? '0'+(date.getSeconds()) : date.getSeconds());
+			return Y+M+D+h+m+s;
+		}
+		//数据交互
+		$.ajax({
+			url:api + "/deallist",
+			dataType:'json',//服务器返回json格式数据
+			type:'get',
+			async:false,
+			success:function(res){
+				//console.log(res)
+				for (var i = 0; i < res.length; i++) {
+					if(res.length > 0){
+						var html = "<tr>"+
+								"<td>"+res[i].ledger+"</td>"+
+								"<td class='type'>"+ res[i].type +"</td>"+
+								"<td>"+res[i].fee+"</td>"+
+								"<td>"+timestampToTime(res[i].date)+"</td>"+
+								"<td><a class='tiao' href='particulars.html'>"+ res[i].hash +"</a></td>"+
+							"</tr>"
+						$(".deallist tbody").append(html)
+					}
+				}
+				if($(".type").text("sent")){
+					$(".type").text("转账")
+				}
+			},
+		})
+	</script>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>全球游戏联盟链区块链浏览器</title>
+	<link rel="icon" type="image/png" sizes="16x16" href="./images/ioc.png">
+	<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	<link rel="stylesheet" href="css/swiper.min.css">
+	<script src="js/swiper.min.js"></script>
+
+	<style type="text/css">
+		html,body{
+			width: 100%;
+			height: 100%;
+			background: #F9FAFD;
+		}
+	</style>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+	<iframe src="head.html" scrolling="no" width="100%" height="105"></iframe>
+	
+	<div class="warp">
+		<div class="container">
+			<p class="title" onclick="history.go(-1)">&lt; Back up one level</p>
+			<div class="down_main">
+				<p>Current trade hash</p>
+				<p style="padding-left:12%;">
+					<span class="hash dai1" style="color: #007AFF;"></span>
+					<img class="btn" width="28" src="images/fuzhi%5D.png" onclick="copyBtn()">
+				</p>
+			</div>
+			
+			<div class="down_main2 mt20">
+				<ul class="down_left details data" style="width: 650px;">
+					<li class="clearfix"><span>the type of transaction</span><span>transfer accounts</span></li>
+					<li class="clearfix"><span>Transaction sponsor</span><span class="dai2"></span></li>
+					
+					<li class="clearfix"><span>Transaction to</span><span class="dai4"></span></li>
+				</ul>
+				<ul class="down_right details2">
+					<li><span style="width:160px">Books</span><span class="zbh"></span></li>
+					<li><span style="width:160px">fuel cost</span><span class="pink dai5"></span></li>
+					<li class="clearfix"><span style="width:160px">transfer amount</span><span class="dai3"> <!--<i class="pink"></i> --></span></li>
+					<!-- <li><span>交易时间</span><span class="dai6"></span></li> -->
+					<!-- <li><span>交易结果</span><span class="dai7"></span></li> -->
+				</ul>
+				
+			</div>
+		</div>
+	</div>
+	<div class="tips" style="display: none;padding: 13px 24px;background: rgba(0,0,0,.35);position: fixed;bottom: 100px;left: 50%;transform: translateX(-50%);z-index: 1000;color: #fff;border-radius: 5px;">
+		Copy success！
+	</div>
+	<!-- 加载框 -->
+	<img class="gif" src="images/load.gif" style="position: fixed;top: 50%;left: 50%;transform: translate(-50%,-50%);">
+<!-- 最新交易end -->
+	<iframe src="foot.html" style="position: fixed;left: 0;bottom: 0;" scrolling="no" width="100%" height="80"></iframe>
+	
+	<script src="js/apiurl.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js"></script>
+	<script type="text/javascript">
+		function copyBtn() {
+			new ClipboardJS('.btn',{text:function(trigger) {
+					return $(".dai1").text();
+				},
+			});
+			$(".tips").show();
+			setInterval(function(){
+				$(".tips").hide();
+			},2000)
+		}
+	</script>
+	<script>
+		function timestampToTime(timestamp) {
+			var date = new Date(timestamp * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+			Y = date.getFullYear() + '-';
+			M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+			D = date.getDate() + ' ';
+			h = date.getHours() + ':';
+			m = (date.getMinutes() < 10 ? '0'+(date.getMinutes()) : date.getMinutes()) + ':';
+			s = (date.getSeconds() < 10 ? '0'+(date.getSeconds()) : date.getSeconds());
+			return Y+M+D+h+m+s;
+		}
+		var hashval = window.sessionStorage.getItem("data2");
+		var lc = JSON.stringify({'id': 106,'jsonrpc': "2.0",'method': "eth_getTransactionByHash",'params': [ hashval ]});
+		$.ajax({
+			url:api,
+			dataType:'json',//服务器返回json格式数据
+			type:'POST',
+			data:lc,
+			contentType: "application/json",//这个参数也是header参数
+			success:function(data){
+				console.log(data)
+				if(data.result != null){
+					$(".gif").addClass("hide")
+					$(".zbh").text(parseInt(data.result.blockNumber.slice(2),16).toString(10))
+					$(".dai1").text(data.result.hash)
+					$(".dai2").text(data.result.from)
+					$(".dai3").text(parseInt(data.result.value.slice(2),16).toString(10) / 1000000000000000000 + "GC")
+					$(".dai4").text(data.result.to)
+					$(".dai5").text(parseInt(data.result.gas.slice(2),16).toString(10) / 1000000000 + "GC")
+				}else{
+					$(".gif").addClass("hide")
+					alert("Please enter the correct hash")
+				}
+			},
+			error:function(error){
+				alert("Please enter the correct hash")
+			}
+		})
+	</script>
+</body>
+</html>

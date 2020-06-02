@@ -1,5 +1,5 @@
 // 线上api前缀
-const api = "http://47.113.93.85:38890/"
+const api = ""
 
 // 本地的api前缀
 // const api = "http://localhost:39000"
